@@ -20,6 +20,10 @@ class UseApi {
 
         val json = response.body()
 
+        if (json.isEmpty() || json.trim() == "[]") {
+            throw IllegalStateException("A resposta da API está vazia ou é um array vazio.")
+        }
+
         val gson = Gson()
         val myInfoGame = gson.fromJson(json, InfoGame::class.java)
 
