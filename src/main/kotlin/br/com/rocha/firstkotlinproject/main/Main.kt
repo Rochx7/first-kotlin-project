@@ -25,10 +25,10 @@ fun main() {
 
     result.onSuccess {
         println("Deseja adicionar uma descrição personalizada? S/N")
-        var descriptionOption = reading.nextLine()
+        val descriptionOption = reading.nextLine()
         if(descriptionOption.equals("s", ignoreCase = true)){
             println("Insira a descrição personalizada para o jogo: ")
-            var description = reading.nextLine()
+            val description = reading.nextLine()
             myGame?.description = description
         }else{
             myGame?.description = myGame?.title
