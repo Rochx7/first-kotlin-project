@@ -1,4 +1,4 @@
-
+package br.com.rocha.firstkotlinproject.module
 data class Game(
     val title:String,
     val thumb:String

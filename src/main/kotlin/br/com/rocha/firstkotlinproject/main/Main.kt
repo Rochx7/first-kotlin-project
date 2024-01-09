@@ -1,8 +1,7 @@
-import com.google.gson.Gson
-import java.net.URI
-import java.net.http.HttpClient
-import java.net.http.HttpRequest
-import java.net.http.HttpResponse
+package br.com.rocha.firstkotlinproject.main
+
+import br.com.rocha.firstkotlinproject.module.Game
+import br.com.rocha.firstkotlinproject.services.UseApi
 import java.util.*
 
 fun main() {
@@ -10,24 +9,14 @@ fun main() {
     println("Digite para buscar:")
 
     val search = reading.nextLine()
-    val url = "https://www.cheapshark.com/api/1.0/games?id=$search"
 
-    val client: HttpClient = HttpClient.newHttpClient()
-    val request = HttpRequest.newBuilder().uri(URI.create(url)).build()
+    val searchApi = UseApi()
+    val infoGame = searchApi.searchGame(search)
 
-    val response = client
-        .send(request, HttpResponse.BodyHandlers.ofString())
-
-    val json = response.body()
-    println(json)
-
-    val gson = Gson()
-
-    var myGame:Game? = null
-
+    var myGame: Game? = null
     val result = runCatching {
-        val myInfoGame = gson.fromJson(json, InfoGame::class.java)
-        myGame = Game(myInfoGame.info.title, myInfoGame.info.thumb)
+
+        myGame = Game(infoGame.info.title, infoGame.info.thumb)
     }
 
     result.onFailure {
