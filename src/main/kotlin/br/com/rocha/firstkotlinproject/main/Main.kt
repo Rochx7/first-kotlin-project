@@ -3,6 +3,7 @@ package br.com.rocha.firstkotlinproject.main
 import br.com.rocha.firstkotlinproject.module.Game
 import br.com.rocha.firstkotlinproject.module.Gamer
 import br.com.rocha.firstkotlinproject.services.UseApi
+import transformInAge
 import java.util.*
 
 fun main() {
@@ -12,6 +13,7 @@ fun main() {
 
     println("Cadastro criado com sucesso.")
     println(gamer)
+    println("Idade do gamer: " + gamer.birthday?.transformInAge())
 
     do {
         println("Digite para buscar:")
@@ -49,5 +51,19 @@ fun main() {
 
     println("Lista de jogos buscados:")
     println(gamer.searchedGames)
+    println("\nJogos por titulo:")
+
+    gamer.searchedGames.sortBy {
+        it?.title
+    }
+    gamer.searchedGames.forEach{
+        println("Title: " + it?.title)
+    }
+
+    val filteredGames = gamer.searchedGames.filter {
+        it?.title?.contains("Batman", ignoreCase = true) ?: false
+    }
+    println("\n filter games:")
+    println(filteredGames)
     println("Busca finalizada")
 }
