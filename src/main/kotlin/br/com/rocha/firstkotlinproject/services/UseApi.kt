@@ -39,11 +39,10 @@ class UseApi {
 
     }
 
-    fun listGames(): List<ListGames>{
+    fun listGames(): List<Game>{
         val url = "https://raw.githubusercontent.com/jeniblodev/arquivosJson/main/jogos.json"
 
         val json = consumeData(url)
-
 
         val gson = Gson()
         val gameType = object : TypeToken<List<InfoApiListGames>>() {}.type

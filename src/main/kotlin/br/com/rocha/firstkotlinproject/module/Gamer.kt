@@ -1,5 +1,6 @@
 package br.com.rocha.firstkotlinproject.module
 
+import java.time.LocalDate
 import java.util.Scanner
 import kotlin.random.Random
 
@@ -16,6 +17,7 @@ data class Gamer(var name:String, var email:String){
         private set
 
     val searchedGames = mutableListOf<Game?>()
+    val rentedGames = mutableListOf<Rent>()
 
     constructor(name:String, email:String, birthday:String, user:String):
             this(name, email){
@@ -35,13 +37,26 @@ data class Gamer(var name:String, var email:String){
         id = "$user#$tag"
     }
 
-    fun validarEmail(): String{
-        val regex = Regex("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$")
-        if(regex.matches(email)){
-            return email
-        } else{
-            throw IllegalArgumentException("Email inválido")
-        }
+//    fun validarEmail(): String{
+//        val regex = Regex("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$")
+//        if(regex.matches(email)){
+//            return email
+//        } else{
+//            throw IllegalArgumentException("Email inválido")
+//        }
+//    }
+
+    fun rentedGame(game: Game, period: Period): Rent{
+        val rent =  Rent(this, game, period)
+        rentedGames.add(rent)
+
+        return rent
+    }
+
+    fun gamesByMonth(month:Int):List<Game>{
+        val findGameByMonth = rentedGames.filter { rent -> rent.period.initialDate.monthValue == month }.map { rent -> rent.game }
+        return findGameByMonth
+
     }
 
     companion object{
