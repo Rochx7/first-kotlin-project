@@ -16,11 +16,6 @@ data class Gamer(var name:String, var email:String){
         private set
 
     val searchedGames = mutableListOf<Game?>()
-//    init {
-//        if(name.isNullOrBlank()) throw IllegalArgumentException("Nome esta em branco")
-//
-//        this.email = validarEmail()
-//    }
 
     constructor(name:String, email:String, birthday:String, user:String):
             this(name, email){

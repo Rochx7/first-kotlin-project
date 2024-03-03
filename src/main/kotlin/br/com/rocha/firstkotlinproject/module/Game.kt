@@ -1,7 +1,7 @@
 package br.com.rocha.firstkotlinproject.module
 data class Game(
-    val title:String,
-    val thumb:String
+    val title: String,
+    val thumb: String,
 ) {
     var description:String? = null
 
