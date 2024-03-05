@@ -4,7 +4,7 @@ import java.time.LocalDate
 import java.util.Scanner
 import kotlin.random.Random
 
-data class Gamer(var name:String, var email:String){
+data class Gamer(var name:String, var email:String):Average{
     var birthday: String? = null
     var user: String? = null
         set(value) {
@@ -13,12 +13,20 @@ data class Gamer(var name:String, var email:String){
                 createId()
             }
         }
-    var id :String? = null
+    private var id :String? = null
         private set
 
     var plan: Plan = SeparatePlan("COPPER")
     val searchedGames = mutableListOf<Game?>()
     val rentedGames = mutableListOf<Rent>()
+    private val noteList = mutableListOf<Int>()
+
+    override val medium: Double
+        get() = noteList.average()
+
+    override fun recommend(note: Int) {
+        noteList.add(note)
+    }
 
     constructor(name:String, email:String, birthday:String, user:String):
             this(name, email){
@@ -28,7 +36,14 @@ data class Gamer(var name:String, var email:String){
             }
 
     override fun toString(): String {
-        return "Gamer(name='$name', email='$email', birthday=$birthday, user=$user, id=$id)"
+        return "Gamer:\n" +
+                " name=$name,\n" +
+                " email=$email,\n" +
+                " birthday=$birthday,\n" +
+                " user=$user,\n" +
+                " id=$id,\n" +
+                " Reputation=${medium}"
+                ")"
     }
 
     fun createId(){
