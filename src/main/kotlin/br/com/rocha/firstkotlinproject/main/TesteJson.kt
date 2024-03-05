@@ -1,6 +1,9 @@
 package br.com.rocha.firstkotlinproject.main
 
 import br.com.rocha.firstkotlinproject.module.Period
+import br.com.rocha.firstkotlinproject.module.Plan
+import br.com.rocha.firstkotlinproject.module.SeparatePlan
+import br.com.rocha.firstkotlinproject.module.SubscriptionPlan
 import br.com.rocha.firstkotlinproject.services.UseApi
 import java.time.LocalDate
 
@@ -24,10 +27,16 @@ fun main(){
     gamerGui.rentedGame(gameRE_Vilage, period1)
     gamerGui.rentedGame(gameSpider, period2)
     gamerGui.rentedGame(gameGodOfWar, period3)
-    gamerGui.rentedGame(gameSpider, period4)
 
 
+    val gamerCamila = listGamer.get(5)
 
-//    println(gamerGui.rentedGames)
-    println(gamerGui.gamesByMonth(3))
+    gamerCamila.plan = SubscriptionPlan("SILVER", 9.90, 3)
+
+    gamerCamila.rentedGame(gameGodOfWar, period1)
+    gamerCamila.rentedGame(gameSpider, period2)
+    gamerCamila.rentedGame(gameRE_Vilage, period2)
+    gamerCamila.rentedGame(gameRE_Vilage, period2)
+
+    println(gamerCamila.rentedGames)
 }
