@@ -5,6 +5,8 @@ import br.com.rocha.firstkotlinproject.module.Plan
 import br.com.rocha.firstkotlinproject.module.SeparatePlan
 import br.com.rocha.firstkotlinproject.module.SubscriptionPlan
 import br.com.rocha.firstkotlinproject.services.UseApi
+import com.google.gson.GsonBuilder
+import java.io.File
 import java.time.LocalDate
 
 fun main(){
@@ -22,22 +24,21 @@ fun main(){
     val period2 = Period(LocalDate.now(), LocalDate.now().plusDays(12))
     val period3 = Period(LocalDate.now(), LocalDate.now().plusDays(7))
 
-    gamerGui.rentedGame(gameREVilage, period1)
     gamerGui.rentedGame(gameSpider, period2)
-    gamerGui.rentedGame(gameGodOfWar, period3)
 
+    gamerGui.plan = SubscriptionPlan("SILVER", 9.90, 3, 0.15)
 
-    val gamerCamila = listGamer.get(5)
+    gamerGui.recommendGame(gameSpider, 10)
 
-    gamerCamila.plan = SubscriptionPlan("SILVER", 9.90, 3, 0.15)
+    println(gamerGui.recommendedGames)
 
-    gamerCamila.rentedGame(gameGodOfWar, period1)
-    gamerCamila.rentedGame(gameSpider, period2)
-    gamerCamila.rentedGame(gameREVilage, period2)
-    gamerCamila.recommend(10)
-    gamerCamila.recommend(9)
+    val gson = GsonBuilder().excludeFieldsWithoutExposeAnnotation().create()
+    val serialization = gson.toJson(gamerGui.recommendedGames)
+    println(serialization)
 
-    gamerCamila.rentedGame( gameSpider, period2)
+    val file = File("recommendedGames.json")
+    file.writeText(serialization)
 
-    println(gamerCamila.rentedGames)
+    println(file.absolutePath)
+
 }

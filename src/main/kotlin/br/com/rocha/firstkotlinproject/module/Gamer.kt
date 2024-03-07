@@ -19,13 +19,19 @@ data class Gamer(var name:String, var email:String):Average{
     var plan: Plan = SeparatePlan("COPPER")
     val searchedGames = mutableListOf<Game?>()
     val rentedGames = mutableListOf<Rent>()
-    private val noteList = mutableListOf<Int>()
+    private val scoreList = mutableListOf<Int>()
+    val recommendedGames = mutableListOf<Game>()
 
     override val medium: Double
-        get() = noteList.average()
+        get() = scoreList.average()
 
-    override fun recommend(note: Int) {
-        noteList.add(note)
+    override fun recommend(score: Int) {
+        scoreList.add(score)
+    }
+
+     fun recommendGame(game: Game, score: Int) {
+       game.recommend(score)
+        recommendedGames.add(game)
     }
 
     constructor(name:String, email:String, birthday:String, user:String):
